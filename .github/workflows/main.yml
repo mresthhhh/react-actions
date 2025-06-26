@@ -1,21 +1,29 @@
 name: Build and Deploy
-on: [push]
+on:
+  push:
+    branches: [ main, master ]  # 明确指定触发分支
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v2 
+        uses: actions/checkout@v3  # 更新到v3版本
 
-      - name: Install and Build 🔧 
+      - name: Install and Build 🔧
         run: |
           npm install
           npm run build
 
       - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@releases/v3
+        uses: JamesIves/github-pages-deploy-action@v4  # 使用v4稳定版
         with:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: build
-
+          token: ${{ secrets.GITHUB_TOKEN }}  # 参数名改为小写token
+          branch: gh-pages  # 参数名改为小写branch
+          folder: build  # 参数名改为小写folder
+          clean: true  # 添加清理选项
