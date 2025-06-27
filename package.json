@@ -24,6 +24,7 @@
       "react-app/jest"
     ]
   },
+  "homepage": "https://mresthhhh.github.io/react-actions",
   "browserslist": {
     "production": [
       ">0.2%",
